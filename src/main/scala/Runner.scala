@@ -8,7 +8,8 @@ object Runner extends App {
   val dayNumber = args.lift(0).map(_.toInt)
 
   val adventCalendar: Vector[AdventDay] = Vector(
-    new Day1()
+    new Day1(),
+    new Day2()
   )
 
   dayNumber match {
