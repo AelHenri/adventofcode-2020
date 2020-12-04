@@ -10,20 +10,22 @@ class Day1 extends AdventDay {
         val intNumbers = numbers.map(_.toInt)
         val numbersSet = intNumbers.toSet
 
-        /* This is what is behind the following for comprehension, which is syntactic sugar
-        val mapOfNumbers: Map[(Int, Int), Int] = intNumbers.flatMap(x => 
-            intNumbers.map(y => ((x, y), 2020 - x - y))
-        ).toMap.filter(elem => elem._1._1 != elem._1._2)
-        */
-        val mapOfNumbers = (for {
+        val mapOfNumbers: Map[(Int, Int), Int] = (for {
             x <- intNumbers;
             y <- intNumbers;
             if x != y
         } yield ((x, y), 2020 - x - y)).toMap
+        /*
+         * The previous for-comprehension is syntactic sugar for the following code :
+         *
+         * val mapOfNumbers: Map[(Int, Int), Int] = intNumbers.flatMap(x => 
+         *     intNumbers.map(y => ((x, y), 2020 - x - y))
+         * ).toMap.filter(elem => elem._1._1 != elem._1._2)
+         *
+        **/
 
         val ((x, y), z) = mapOfNumbers.filter(num => numbersSet.contains(num._2)).head
 
-        println(s"$x, $y, $z")
         x * y * z
     }
 }
