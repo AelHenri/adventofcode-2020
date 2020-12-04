@@ -9,7 +9,8 @@ object Runner extends App {
 
   val adventCalendar: Vector[AdventDay] = Vector(
     new Day1(),
-    new Day2()
+    new Day2(),
+    new Day3()
   )
 
   dayNumber match {
