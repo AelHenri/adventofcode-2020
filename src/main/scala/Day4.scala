@@ -1,5 +1,6 @@
 import scala.util.matching.Regex
 import scala.annotation.meta.field
+import scala.io.BufferedSource
 
 class Day4 extends AdventDay {
 
@@ -63,13 +64,6 @@ class Day4 extends AdventDay {
     }
   }
 
-  def convertFileLinesToPassportLines(fileLines: Vector[String]): Vector[String] = {
-    fileLines
-      .mkString("\n")
-      .split("\n\n")
-      .toVector
-  }
-
   def storePassportFieldsToMap(passportLine: String, fieldRule: Regex): Map[String, String] = {
     fieldRule.findAllMatchIn(passportLine).map(m => (m.group(1), m.group(2))).toMap
   }
@@ -100,9 +94,12 @@ class Day4 extends AdventDay {
     actualNumberOfValidFields == numberOfFieldsToCheck
   }
 
+  override def readFile(fileBuffer: BufferedSource): Vector[String] = {
+    readFileByParagraph(fileBuffer)
+  }
+
   override def runPart1(fileContent: Vector[String]): Int = {
-    val passports    = convertFileLinesToPassportLines(fileContent)
-    val passportsMap = passports.map(storePassportFieldsToMap(_, PASSPORT_FIELD_RULE))
+    val passportsMap = fileContent.map(storePassportFieldsToMap(_, PASSPORT_FIELD_RULE))
 
     passportsMap
       .filter(doesPassportHaveAllFields(_, FIELDS_TO_CHECK))
@@ -110,8 +107,7 @@ class Day4 extends AdventDay {
   }
 
   override def runPart2(fileContent: Vector[String]): Int = {
-    val passports    = convertFileLinesToPassportLines(fileContent)
-    val passportsMap = passports.map(storePassportFieldsToMap(_, PASSPORT_FIELD_RULE))
+    val passportsMap = fileContent.map(storePassportFieldsToMap(_, PASSPORT_FIELD_RULE))
 
     passportsMap
       .filter(doesPassportHaveAllFields(_, FIELDS_TO_CHECK))

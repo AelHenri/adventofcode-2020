@@ -12,7 +12,8 @@ object Runner extends App {
     new Day2(),
     new Day3(),
     new Day4(),
-    new Day5()
+    new Day5(),
+    new Day6()
   )
 
   dayNumber match {
@@ -24,7 +25,7 @@ object Runner extends App {
         case Some(cd) => {
           val fileName = s"day${dn}.txt"
           val fileBuffer = Source.fromResource(fileName)
-          val fileContent = fileBuffer.getLines.toVector
+          val fileContent = cd.readFile(fileBuffer)
           fileBuffer.close()
           
           val part1 = cd.runPart1(fileContent)
