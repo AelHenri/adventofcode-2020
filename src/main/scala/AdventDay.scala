@@ -12,8 +12,8 @@ trait AdventDay {
   }
 
   protected def readFileByParagraph(fileBuffer: BufferedSource): Vector[String] = {
-    fileBuffer.getLines()
-      .mkString("\n")
+    fileBuffer
+      .mkString
       .split("\n\n")
       .toVector
   }
