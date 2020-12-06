@@ -1,12 +1,11 @@
 class Day5 extends AdventDay {
 
   def seatCodeHelperFunction(range: (Int, Int), seatCodeChar: Char): (Int, Int) = {
+    val midValue = range._1 + (range._2 - range._1) / 2
     seatCodeChar match {
-      case ('F' | 'L') if (range._1 + 1 == range._2) => (range._1, range._1)
-      case ('B' | 'R') if (range._1 + 1 == range._2) => (range._2, range._2)
-      case ('F' | 'L')                               => (range._1, range._1 + (range._2 - range._1) / 2)
-      case ('B' | 'R')                               => (range._1 + (range._2 - range._1) / 2 + 1, range._2)
-      case _                                         => range
+      case ('F' | 'L') => (range._1, midValue)
+      case ('B' | 'R') => (midValue + 1, range._2)
+      case _           => range
     }
   }
 
